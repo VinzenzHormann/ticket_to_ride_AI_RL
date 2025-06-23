@@ -1,0 +1,68 @@
+# Python
+*.pyc
+__pycache__/
+*.so
+*.pyd
+.Python
+build/
+dist/
+*.egg-info/
+.env
+venv/
+env/
+# These are common names for virtual environments, add yours if different
+# Example: my_ttr_env/
+
+# Jupyter / IPython / Google Colab
+.ipynb_checkpoints
+.ipynb_temp/
+*.ipynb-filter
+# Output files that might be generated in notebooks
+*.html
+*.pdf
+*.csv
+*.json
+*.pickle
+# If you output plots directly from Colab, you might need to add their extensions
+# e.g., *.png, *.jpg if you are saving them programmatically and don't want them tracked
+# But usually, visualization outputs you *want* to show in README should be tracked.
+
+# IDEs and Editors
+.idea/             # JetBrains IDEs (PyCharm, IntelliJ)
+.vscode/           # VS Code
+*.iml              # JetBrains module files
+.DS_Store          # macOS specific
+Thumbs.db          # Windows specific
+desktop.ini        # Windows specific
+
+# Machine Learning / AI specific
+# Model checkpoints, saved models, and training logs
+models/            # Directory where you might save trained models
+checkpoints/       # Directory for model checkpoints
+*.pth              # PyTorch model weights
+*.pt               # PyTorch model weights
+*.h5               # Keras/TensorFlow model weights
+*.ckpt             # TensorFlow checkpoints
+saved_models/      # Another common directory for models
+
+# Training logs and data
+logs/
+runs/              # Common for TensorBoard logs
+data/              # If you plan to download large datasets here
+# If you generate large temporary files
+*.npy
+*.npz
+
+# Compiled libraries/executables (if applicable)
+*.dll
+*.exe
+*.obj
+*.lib
+
+# Environment variables file
+.env               # Common for storing API keys or sensitive configurations
+
+# Backup files
+*~                 # Emacs/Vim backup files
+*.bak
+*.swp
