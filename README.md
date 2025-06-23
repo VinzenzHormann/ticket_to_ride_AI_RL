@@ -2,7 +2,7 @@
 
 Create an AI for the board game "Ticket to Ride" by using a Reinforcement Learning (RL) approach. Its blend of strategic route planning, resource management, and competitive blocking makes it an ideal environment for exploring advanced AI learning techniques through self-play.
 
-## WHAT “IS TICKET TO RIDE”?
+## WHAT IS "TICKET TO RIDE”?
 
 “Ticket to Ride” (America base game) is a board game where you have a map of major cities in America. Players draw "tickets" which give the task to connect two cities with a train route network. Players earn points based on fulfilled tickets, routes claimed, and for holding the longest continuous train route.
 
