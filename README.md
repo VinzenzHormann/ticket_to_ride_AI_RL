@@ -58,7 +58,6 @@ Detailed components:
 * Used Matplotlib to plot each city on a 22x13 grid, demonstrating the geographical layout.
 * Added lines to represent all routes, with a special offset mechanism to prevent double routes from overlapping.
 * Implemented logic to display claimed routes with brighter/bolder lines, dynamically showing board ownership.
-    **[INSERT SCREENSHOT/GIF OF YOUR MAP VISUALIZATION HERE]**
 
 ## TECHNOLOGIES USED
 
