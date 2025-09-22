@@ -119,7 +119,7 @@ This is the primary function that orchestrates the entire learning process.
 This is the primary function that orchestrates the entire learning process.
 
 * **1. The Initial Exploration Phase (first 100 episodes):** the agent's performance is low and highly volatile, with rewards often fluctuating. This is exactly what we would expect. The agent's epsilon-greedy strategy is heavily weighted towards exploration, meaning it is taking many random actions to populate its Q-table with reward data.
-* **2. The Learning and Improvement Phase (until episode 1,500): ** You can see a noticeable increase in the average reward during this period. The total rewards are consistently more positive than in the initial phase, with spikes reaching near to 20 or more. This indicates that the agent is now beginning to exploit the positive knowledge it has gained from its exploration.
+* **2. The Learning and Improvement Phase (until episode 1,500):** You can see a noticeable increase in the average reward during this period. The total rewards are consistently more positive than in the initial phase, with spikes reaching near to 20 or more. This indicates that the agent is now beginning to exploit the positive knowledge it has gained from its exploration.
 * **3. The Convergence Phase (Episodes 1,500-10,000):** After the 1,500 the agent's performance has largely stabilized. The total rewards are consistently positive, and the range of fluctuation has significantly narrowed especially in the negative direction, spikes reaching 25 or more are stil frequently visible.
 
 ### Next Steps & Focus:
