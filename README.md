@@ -73,7 +73,7 @@ This period was dedicated to building and integrating the Q-learning agent. I fo
 
 The Q-table approach meant that it was not possible to train the agent on the entire TtR map. The size of the action space and observation space would have caused a memory error if used with the Q-table approach. Therefore, I decided to use a tiny version of the game, with three cities, three connection routes, only two color cards (grey and red), and a single ticket that is in both players' hands from the start of the game.
 
-Analyzing the results of the current RL agent with a Q-table approach: after training for 10,000 episodes, it's safe to say the agent has discovered a valid strategy for the tiny map setup, with a clear stabilization of the average reward after the 1,500th episode. The Q-table approach is a success and an encouraging sign that, with the right models and approaches, the challenge of training an agent on the full map will also be achievable.
+Analyzing the results of the current RL agent with a Q-table approach: after training for 10,000 episodes, it's safe to say the agent has discovered a valid strategy for the tiny map setup, with a clear stabilization of the average reward after the 1,500th episode (see phase 2 qt able leaning results.JPG). The Q-table approach is a success and an encouraging sign that, with the right models and approaches, the challenge of training an agent on the full map will also be achievable.
 
 #### Detailed Features & Implementations:
 
