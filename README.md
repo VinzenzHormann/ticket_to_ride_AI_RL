@@ -1,5 +1,3 @@
-#Ticket to Ride AI with Reinforcement Learning
-
 ## PROJECT AIM
 
 Create an AI for the board game "Ticket to Ride" by using a Reinforcement Learning (RL) approach. Its blend of strategic route planning, resource management, and competitive blocking makes it an ideal environment for exploring advanced AI learning techniques through self-play.
