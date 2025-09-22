@@ -94,15 +94,14 @@ This is the primary function that orchestrates the entire learning process.
 
     * **Initialization:** It starts by creating an instance of the TicketToRideEnv and QLearningAgent classes. It also initializes a list to store the rewards for each episode.
     * **Episode Iteration:** The loop iterates for a predefined number of num_episodes. In each episode.
-	*  The environment is reset.
-    *  A while loop continues as long as the game has not ended.
-    *  The agent's select_action function is called to choose an action based on the current observation.
-	*  The chosen action is passed to the environment's step function, which moves the game forward.
-	*  The environment's step returns the reward and the new_observation.
-	*  The agent's learn function is called to update its Q-table using the reward and new_observation.
-	*  The loop updates the total reward for the episode and sets the current observation to the new_observation for the next turn.
-
-* **Post-Episode:** After each episode, the agent's decay_epsilon function is called, gradually reducing its exploration rate.
+		*  The environment is reset.
+    	*  A while loop continues as long as the game has not ended.
+    	*  The agent's select_action function is called to choose an action based on the current observation.
+		*  The chosen action is passed to the environment's step function, which moves the game forward.
+		*  The environment's step returns the reward and the new_observation.
+		*  The agent's learn function is called to update its Q-table using the reward and new_observation.
+		*  The loop updates the total reward for the episode and sets the current observation to the new_observation for the next turn.
+	* **Post-Episode:** After each episode, the agent's decay_epsilon function is called, gradually reducing its exploration rate.
 
 * **Q-Learning Agent Implementation:**
 This is the primary function that orchestrates the entire learning process.
