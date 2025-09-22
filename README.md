@@ -1,4 +1,4 @@
- #Ticket to Ride AI with Reinforcement Learning
+#Ticket to Ride AI with Reinforcement Learning
 
 ## PROJECT AIM
 
@@ -16,7 +16,19 @@ The project idea is simple yet represents a potentially steep learning curve for
 
 ## Project Progress: Recent Updates
 
-### Last Update: July 8, 2025
+### Last Update: September 17, 2025 
+ 
+**Completed:**
+* **Reinforcement Learning Setup:** Implemented a Q-Learning Agent to control the AI player.
+* **State Space Discretization:** Developed a custom _encode_state function to map the game's observation space (train cards, route ownership, ticket status) to a single integer index.
+* **Training and Learning Logic:** Integrated the agent's core select_action (using an epsilon-greedy strategy) and learn (using the Bellman equation) functions into a complete training loop.
+* **Evaluation:** Added a final testing phase to evaluate the trained agent's performance with no exploration.
+* **Analysis:** Analyze the reward plot, agent behaviour and decision-making.
+* **Next Focus:** Develop a RL agent with a neural network approach that can handle the entire scope of the game and not a highly simplified version.
+
+---
+
+## Update: July 8, 2025
 
 **Completed:**
 * **Core Game Engine Refinement:** Implemented full route claiming mechanics, end-game triggers, last round actions, and complete end-game scoring.
@@ -31,8 +43,6 @@ The project idea is simple yet represents a potentially steep learning curve for
 * Finalize comprehensive scoring logic, including the longest route bonus.
 * Deepen understanding of fundamental RL models and approaches.
 * Formally define the initial state space, action space, and reward system for the RL agent.
-
----
 
 ### Update: June 23, 2025
 
@@ -51,17 +61,74 @@ The project idea is simple yet represents a potentially steep learning curve for
 
 This project will proceed in distinct phases:
 
-* **Phase 1: Game Engine Development** 
-* **Phase 2: Basic AI Development** 
-* **Phase 3: Reinforcement Learning Setup** 
-* **Phase 4: Training and Iteration** 
-* **Phase 5: Evaluation and Analysis** 
+* **Phase 1: Game Engine Development (Completed)** 
+* **Phase 2: RL Setup with Q table Approach (Completed)** 
+* **Phase 3: RL Setup with neural network approach (In Progress)** 
+* **Phase 4: Training and Iteration (In Progress)**  
 
 ## DEVELOPMENT DIARY
 
 This section serves as a detailed chronological log of my development process, design decisions, challenges encountered, and lessons learned throughout the project.
 
-### Entry: July 9, 2025
+### Entry: September 17, 2025
+
+**Overall Summary for this period:**
+This period was dedicated to building and integrating the Q-learning agent. I focused on translating game states into a format the model could understand and then setting up a robust training loop.
+
+The Q-table approach meant that it was not possible to train the agent on the entire TtR map. The size of the action space and observation space would have caused a memory error if used with the Q-table approach. Therefore, I decided to use a tiny version of the game, with three cities, three connection routes, only two color cards (grey and red), and a single ticket that is in both players' hands from the start of the game.
+
+Analyzing the results of the current RL agent with a Q-table approach: after training for 10,000 episodes, it's safe to say the agent has discovered a valid strategy for the tiny map setup, with a clear stabilization of the average reward after the 1,500th episode. The Q-table approach is a success and an encouraging sign that, with the right models and approaches, the challenge of training an agent on the full map will also be achievable.
+
+#### Detailed Features & Implementations:
+
+* **Object-Oriented Design (OOP) Principles:** The project is structured with a clear separation of concerns, which is a fundamental principle of OOP. The game logic is contained within the TicketToRideEnv class, while the learning and decision-making capabilities are encapsulated in the QLearningAgent class. This modular approach allows for clean, maintainable code where each class has a single, well-defined responsibility.
+
+* **The TicketToRideEnv Environment Class:**
+This class is the heart of the simulation and is built to be compatible with the gymnasium library, a standard for RL environments.
+
+    * **__init__:** Initializes all aspects of the game, including players, the board state, train cards, and tickets. It also defines the observation space (what the agent can see) and the action space (what the agent can do).
+    * **reset:** This function is called at the beginning of each training episode. It resets the game to its initial state, shuffles decks, deals cards, and returns the initial observation to the agent.
+    * **step:** The most critical function. It takes an action from the agent and advances the game one step. It processes the action (e.g., claims a route, draws a card), updates the game state, calculates the reward for that action, and checks if the game is terminated or truncated (e.g., the game ends). Finally, it returns the new observation, the reward, and the termination status to the agent.
+
+* **The Hard-Coded AI Opponent:**
+The opposing player is not a learning agent but rather a hard-coded AI with a simple rule-based strategy. Its purpose is to provide a consistent environment for our Q-learning agent to train against. Its actions are deterministic: it checks for a valid route to claim and, if one exists, it claims it. Otherwise, it defaults to drawing a card. This allows us to evaluate our learning agent's performance without the added complexity of a constantly adapting opponent.
+
+* **The Main Training Loop:**
+This is the primary function that orchestrates the entire learning process.
+
+    * **Initialization:** It starts by creating an instance of the TicketToRideEnv and QLearningAgent classes. It also initializes a list to store the rewards for each episode.
+    * **Episode Iteration:** The loop iterates for a predefined number of num_episodes. In each episode.
+	1.  The environment is reset.
+        2.  A while loop continues as long as the game has not ended.
+        3.  The agent's select_action function is called to choose an action based on the current observation.
+	4.  The chosen action is passed to the environment's step function, which moves the game forward.
+	5.  The environment's step returns the reward and the new_observation.
+	6.  The agent's learn function is called to update its Q-table using the reward and new_observation.
+	7.  The loop updates the total reward for the episode and sets the current observation to the new_observation for the next turn.
+    * **Post-Episode:** After each episode, the agent's decay_epsilon function is called, gradually reducing its exploration rate.
+
+* **Q-Learning Agent Implementation:**
+This is the primary function that orchestrates the entire learning process.
+
+    * **__init__:** The agent is initialized with hyperparameters like learning rate (alpha), discount factor (gamma), and epsilon for the exploration-exploitation trade-off. It creates the Q-table, a NumPy array where each row represents a unique game state and each column represents a possible action.
+    * **_encode_state** This crucial function takes the game's observation array (a multi-dimensional NumPy array) and converts it into a single, unique integer. This is necessary because the Q-table requires a discrete index for each state. The logic uses a base-N system to map each dimension of the observation space to a unique row in the Q-table, efficiently handling the large number of potential states.
+    * **select_action:** This function implements the epsilon-greedy strategy. With a probability of epsilon, the agent chooses a random action (exploration). Otherwise, it chooses the action with the highest Q-value from the Q-table for the current state (exploitation).
+    * **learn:** The heart of the algorithm. This function updates the Q-table after each action. It uses the Bellman equation to update the Q-value for the previous state-action pair based on the reward received and the maximum possible Q-value of the new state. This is how the agent learns from experience.
+    * **decay_epsilon:** After each full game episode, the epsilon value is decayed. This means the agent gradually shifts from a phase of high exploration (random actions) to a phase of high exploitation (choosing the best-known actions).
+
+### Analysing the current performance of the q table approach:
+This is the primary function that orchestrates the entire learning process.
+
+* **1. The Initial Exploration Phase (first 100 episodes):** the agent's performance is low and highly volatile, with rewards often fluctuating. This is exactly what we would expect. The agent's epsilon-greedy strategy is heavily weighted towards exploration, meaning it is taking many random actions to populate its Q-table with reward data.
+* **2. The Learning and Improvement Phase (until episode 1,500): ** You can see a noticeable increase in the average reward during this period. The total rewards are consistently more positive than in the initial phase, with spikes reaching near to 20 or more. This indicates that the agent is now beginning to exploit the positive knowledge it has gained from its exploration.
+* **3. The Convergence Phase (Episodes 1,500-10,000):** After the 1,500 the agent's performance has largely stabilized. The total rewards are consistently positive, and the range of fluctuation has significantly narrowed especially in the negative direction, spikes reaching 25 or more are stil frequently visible.
+
+### Next Steps & Focus:
+* **Advanced Reinforcement Learning:** Transitioning from the Q-table to a more advanced model capable of handling the full game's state space. This will involve implementing a Deep Q-Network (DQN) which uses a neural network to approximate Q-values.
+
+---
+
+### Update: July 9, 2025
 
 **Overall Summary for this period:**
 This period focused heavily on finalizing the core game engine components, particularly around player turn management, complex rule implementations like ticket completion, and setting up the foundational state representation needed for the upcoming Reinforcement Learning phase. I also implemented dynamic visualization for better debugging.
@@ -155,8 +222,9 @@ Detailed components:
 
 * Python 3.x
 * Matplotlib (for visualization)
+* Gymnasium (for the RL environment)
 * NumPy (for numerical operations)
-* `collections.deque` (for efficient queue operations, notably in BFS)
-* Python's built-in `random` library (for initial random choices and deck shuffling)
+* collections.deque (for efficient queue operations, notably in BFS)
+* Python's built-in "random" library (for initial random choices and deck shuffling)
 
 
