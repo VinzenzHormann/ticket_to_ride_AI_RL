@@ -26,9 +26,7 @@ The project idea is simple yet represents a potentially steep learning curve for
 * **Analysis:** Analyze the reward plot, agent behaviour and decision-making.
 * **Next Focus:** Develop a RL agent with a neural network approach that can handle the entire scope of the game and not a highly simplified version.
 
----
-
-## Update: July 8, 2025
+### Update: July 8, 2025
 
 **Completed:**
 * **Core Game Engine Refinement:** Implemented full route claiming mechanics, end-game triggers, last round actions, and complete end-game scoring.
