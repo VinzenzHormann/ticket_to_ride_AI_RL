@@ -132,9 +132,6 @@ This period marked a significant architectural shift from the tabular Q-learning
 
 
 ### Next Steps & Focus:
-* **Reward Shaping:** Adjusting the reward function to provide "milestone" rewards for getting closer to completing a ticket, rather than only rewarding the final connection.
-* **Hyperparameter Tuning:** Adjusting the learning rate and epsilon decay to help the "losing" agent recover more quickly from competitive dips.
-* **Experience Replay Prioritization:** Implementing "Prioritized Experience Replay" to ensure the agent learns more frequently from rare or high-impact events (like completing a very long ticket).
 * **MCTS Groundwork:** Exploring the integration of Monte Carlo Tree Search to give the DQN agent "look-ahead" capabilities, combining deep learning with classical search.
 
 ---
