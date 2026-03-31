@@ -1,5 +1,3 @@
-#Ticket to Ride AI with Reinforcement Learning
-
 ## PROJECT AIM
 
 Create an AI for the board game "Ticket to Ride" by using a Reinforcement Learning (RL) approach. Its blend of strategic route planning, resource management, and competitive blocking makes it an ideal environment for exploring advanced AI learning techniques through self-play.
@@ -39,8 +37,6 @@ Throughout this phase, I utilized an AI-aided coding workflow, which significant
 **Next Focus:**
 * Strategy Stabilization: Implementing decaying learning rates and "Experience Replay" enhancements to prevent the sudden performance dips observed in long-term training.
 * MCTS Integration: Beginning the groundwork for Monte Carlo Tree Search to provide the agent with look-ahead capabilities.
-
----
 
 ### Update: September 17, 2025 
  
@@ -125,7 +121,7 @@ This period marked a significant architectural shift from the tabular Q-learning
     * The Central Corridor (between Duluth and Houston).
     * The Northeast Axis (around the Atlanta–New York–Montreal area).
     * The Pacific Northwest (the 1-point connection between Seattle and Vancouver).
-* **Vulnerability to Random Strategies:** Interestingly, the trained agents were occasionally outplayed by a random agent. This occurs because the trained agents attempt to "hoard" specific color cards to build longer, high-value routes in anticipation of a lengthy game. Conversely, the random agent places trains indiscriminately, rapidly exhausting its wagon supply and triggering an early game-end. This effectively "blitzes" the trained agent, leaving them with a hand full of unused cards and uncompleted objectives.
+* **Vulnerability to Random Strategies:** Interestingly, the trained agents were outplayed by a random agent quiet often. This occurs because the trained agents attempt to "hoard" specific color cards to build longer, high-value routes in anticipation of a lengthy game. Conversely, the random agent places trains indiscriminately, rapidly exhausting its wagon supply and triggering an early game-end. This effectively "blitzes" the trained agent, leaving them with a hand full of unused cards and uncompleted objectives.
 * **The Performance "Dip":** in one of the 20.000 episode training sessions a major dip for Player 1 occurred around episode 6,000, indicating that Player 2 discovered a counter-strategy, necessitating a policy adaptation from Player 1.
 
 
