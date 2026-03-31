@@ -1,5 +1,3 @@
-#Ticket to Ride AI with Reinforcement Learning
-
 ## PROJECT AIM
 
 Create an AI for the board game "Ticket to Ride" by using a Reinforcement Learning (RL) approach. Its blend of strategic route planning, resource management, and competitive blocking makes it an ideal environment for exploring advanced AI learning techniques through self-play.
@@ -37,12 +35,10 @@ Throughout this phase, I utilized an AI-aided coding workflow, which significant
 * **Advanced Convergence Analysis:** Analyzed training plots (5,000–12,000 episodes) identifying "policy dipping" behavior, likely caused by agents overfitting to each other's specific vulnerabilities or reaching local optima.
 
 **Next Focus:**
-*Strategy Stabilization: Implementing decaying learning rates and "Experience Replay" enhancements to prevent the sudden performance dips observed in long-term training.
-*MCTS Integration: Beginning the groundwork for Monte Carlo Tree Search to provide the agent with look-ahead capabilities.
+* Strategy Stabilization: Implementing decaying learning rates and "Experience Replay" enhancements to prevent the sudden performance dips observed in long-term training.
+* MCTS Integration: Beginning the groundwork for Monte Carlo Tree Search to provide the agent with look-ahead capabilities.
 
----
-
-### Last Update: September 17, 2025 
+### Update: September 17, 2025 
  
 **Completed:**
 * **Reinforcement Learning Setup:** Implemented a Q-Learning Agent to control the AI player.
@@ -52,7 +48,7 @@ Throughout this phase, I utilized an AI-aided coding workflow, which significant
 * **Analysis:** Analyze the reward plot, agent behaviour and decision-making.
 * **Next Focus:** Develop a RL agent with a neural network approach that can handle the entire scope of the game and not a highly simplified version.
 
-## Update: July 8, 2025
+### Update: July 8, 2025
 
 **Completed:**
 * **Core Game Engine Refinement:** Implemented full route claiming mechanics, end-game triggers, last round actions, and complete end-game scoring.
@@ -87,7 +83,7 @@ This project will proceed in distinct phases:
 
 * **Phase 1: Game Engine Development (Completed)** 
 * **Phase 2: RL Setup with Q table Approach (Completed)** 
-* **Phase 3: RL Setup with nNeural Network/DQN Approach (Completed)** 
+* **Phase 3: RL Setup with Neural Network/DQN Approach (Completed)** 
 * **Phase 4: MCTS Hybridization & Policy Refinement (In Progress)**  
 
 
@@ -115,8 +111,9 @@ This period marked a significant architectural shift from the tabular Q-learning
 * **3. Multi-Agent Competitive Environment:**
     * **Self-Play Dynamics:** Unlike the previous phase which used a hard-coded AI opponent, this setup features two DQN agents (Player 1 and Player 2) learning simultaneously.
 
-### Analyzing the Results (20,000 Episodes):**
-* **Overall Trend: The agent's performance begins with an initial "dip phase" lasting until approximately episode 2,500. During this early stage, the rewards are highly volatile, characterized by numerous extreme positive and negative outliers as the agents explore the environment.
+### Analyzing the Results (20,000 Episodes):
+![DQN Agent Reward Graph](screenshots/22000_episode_reward_graph.png)
+* **Overall Trend:** The agent's performance begins with an initial "dip phase" lasting until approximately episode 2,500. During this early stage, the rewards are highly volatile, characterized by numerous extreme positive and negative outliers as the agents explore the environment.
 * **Growth and Stability:** Following this period, there is a slow but steady improvement in the rolling average reward. The learning curve begins to plateau around episode 15,000, with the average performance stabilizing between 0 and 50.
 * **Observation on Variance:** While the average reward remains consistently positive in the latter half of the training, the high density of the shaded area (raw rewards) indicates that significant variance remains. This suggests that while the agent has learned a winning strategy, it still encounters challenging scenarios or makes occasional sub-optimal moves.
 * **Dominance of Route Claiming:** Both agents failed to fully grasp the strategic value of Destination Tickets. Instead, they favored a high-frequency route-claiming approach. In the early game, the agents prioritize 1–3 train routes, shifting toward longer 4–5 train segments only during the endgame phase.
@@ -124,7 +121,7 @@ This period marked a significant architectural shift from the tabular Q-learning
     * The Central Corridor (between Duluth and Houston).
     * The Northeast Axis (around the Atlanta–New York–Montreal area).
     * The Pacific Northwest (the 1-point connection between Seattle and Vancouver).
-* **Vulnerability to Random Strategies:** Interestingly, the trained agents were occasionally outplayed by a random agent. This occurs because the trained agents attempt to "hoard" specific color cards to build longer, high-value routes in anticipation of a lengthy game. Conversely, the random agent places trains indiscriminately, rapidly exhausting its wagon supply and triggering an early game-end. This effectively "blitzes" the trained agent, leaving them with a hand full of unused cards and uncompleted objectives.
+* **Vulnerability to Random Strategies:** Interestingly, the trained agents were outplayed by a random agent quiet often. This occurs because the trained agents attempt to "hoard" specific color cards to build longer, high-value routes in anticipation of a lengthy game. Conversely, the random agent places trains indiscriminately, rapidly exhausting its wagon supply and triggering an early game-end. This effectively "blitzes" the trained agent, leaving them with a hand full of unused cards and uncompleted objectives.
 * **The Performance "Dip":** in one of the 20.000 episode training sessions a major dip for Player 1 occurred around episode 6,000, indicating that Player 2 discovered a counter-strategy, necessitating a policy adaptation from Player 1.
 
 
@@ -135,9 +132,6 @@ This period marked a significant architectural shift from the tabular Q-learning
 
 
 ### Next Steps & Focus:
-* **Reward Shaping:** Adjusting the reward function to provide "milestone" rewards for getting closer to completing a ticket, rather than only rewarding the final connection.
-* **Hyperparameter Tuning:** Adjusting the learning rate and epsilon decay to help the "losing" agent recover more quickly from competitive dips.
-* **Experience Replay Prioritization:** Implementing "Prioritized Experience Replay" to ensure the agent learns more frequently from rare or high-impact events (like completing a very long ticket).
 * **MCTS Groundwork:** Exploring the integration of Monte Carlo Tree Search to give the DQN agent "look-ahead" capabilities, combining deep learning with classical search.
 
 ---
