@@ -14,7 +14,33 @@ The game uses 110 train car cards (8 different colors and 1 joker/locomotive typ
 
 The project idea is simple yet represents a potentially steep learning curve for me. It's "simple" because its core concept isn't entirely groundbreaking, but "difficult" because I have never implemented such a complex system before. This makes it a non-typical starter project in the field, challenging me to learn and apply new concepts throughout its development. I aim for this project to be a testament to my ability to tackle complex, self-directed engineering and AI challenges.
 
+## PROJECT STATUS UPDATE: RESUME & FUTURE DIRECTION
+
+### October 2025 – Present:
+After finishing the core DQN work at the end of September 2025, I decided to pause the project for a while. It became clear that while DQN could handle the board size, a more sophisticated approach—specifically incorporating Monte Carlo Tree Search (MCTS)—was necessary to truly master the long-term planning required for ticket completion and high-level play.
+
+I am now resuming development (as of March 2026) to integrate MCTS with the existing deep learning framework, aiming to bridge the gap between "greedy" route claiming and strategic network building.
+
+### Workflow Reflection:
+
+Throughout this phase, I utilized an AI-aided coding workflow, which significantly accelerated the implementation of complex deep learning architectures and helped in debugging the intricate state-space transitions required for a full-scale board game simulation.
+
 ## Project Progress: Recent Updates
+
+### Last Update: March 30, 2026
+
+**Completed:**
+
+* **Transition to Deep Q-Learning (DQN):** Successfully moved from a discrete Q-table to a Neural Network approach. This allows the agent to handle larger state spaces by approximating Q-values rather than storing them in a fixed table.
+* **Hardware Acceleration & Framework Shift:** Migrated the training pipeline to TensorFlow/PyTorch (depending on the environment) to utilize GPU acceleration. This significantly reduced training time per episode.
+* **Multi-Agent Competitive Training:** Implemented a self-play environment where two DQN agents compete and evolve strategies simultaneously.
+* **Advanced Convergence Analysis:** Analyzed training plots (5,000–12,000 episodes) identifying "policy dipping" behavior, likely caused by agents overfitting to each other's specific vulnerabilities or reaching local optima.
+
+**Next Focus:**
+*Strategy Stabilization: Implementing decaying learning rates and "Experience Replay" enhancements to prevent the sudden performance dips observed in long-term training.
+*MCTS Integration: Beginning the groundwork for Monte Carlo Tree Search to provide the agent with look-ahead capabilities.
+
+---
 
 ### Last Update: September 17, 2025 
  
@@ -25,8 +51,6 @@ The project idea is simple yet represents a potentially steep learning curve for
 * **Evaluation:** Added a final testing phase to evaluate the trained agent's performance with no exploration.
 * **Analysis:** Analyze the reward plot, agent behaviour and decision-making.
 * **Next Focus:** Develop a RL agent with a neural network approach that can handle the entire scope of the game and not a highly simplified version.
-
----
 
 ## Update: July 8, 2025
 
@@ -63,12 +87,60 @@ This project will proceed in distinct phases:
 
 * **Phase 1: Game Engine Development (Completed)** 
 * **Phase 2: RL Setup with Q table Approach (Completed)** 
-* **Phase 3: RL Setup with neural network approach (In Progress)** 
-* **Phase 4: Training and Iteration (In Progress)**  
+* **Phase 3: RL Setup with nNeural Network/DQN Approach (Completed)** 
+* **Phase 4: MCTS Hybridization & Policy Refinement (In Progress)**  
+
 
 ## DEVELOPMENT DIARY
 
 This section serves as a detailed chronological log of my development process, design decisions, challenges encountered, and lessons learned throughout the project.
+
+### Entry: March 30, 2026
+
+**Overall Summary for this period:**
+
+This period marked a significant architectural shift from the tabular Q-learning approach to a Deep Q-Network (DQN). The primary goal was to overcome the "curse of dimensionality" encountered with the Q-table, which limited training to a tiny version of the map. By implementing a neural network to approximate Q-values, I successfully enabled the agent to process the full complexity of the Ticket to Ride observation space. This phase also introduced multi-agent training where two learning agents compete against each other.
+
+#### Detailed Features & Implementations:
+
+* **1. Deep Q-Network (DQN) Architecture:**
+    * **Neural Network Approximation:** Replaced the discrete Q-table with a multi-layer perceptron (MLP). This allowed the agent to generalize across similar game states instead of requiring a unique entry for every possible combination of cards and routes.
+    * **Input/Output Layers:** Designed to accept a flattened observation vector (hand, board state, opponent progress) and output Q-values for every possible action.
+    * **Experience Replay:** Implemented a replay buffer to store past experiences (state, action, reward, next\_state). By sampling random batches from this buffer during training, I broke the correlation between consecutive turns, leading to much more stable convergence.
+
+* **2. Hardware Acceleration & Framework Integration:**
+    * **GPU Utilization:** Shifted the training pipeline to leverage GPU acceleration. Given the intensive nature of backpropagation in deep RL, moving away from CPU-only training was essential to run thousands of episodes in a reasonable timeframe.
+    * **Target Network:** To further stabilize training, I implemented a "Target Network"—a secondary network used to calculate the target Q-values that only updates its weights periodically. This prevents the "moving target" problem where the network chases its own tail during optimization.
+
+* **3. Multi-Agent Competitive Environment:**
+    * **Self-Play Dynamics:** Unlike the previous phase which used a hard-coded AI opponent, this setup features two DQN agents (Player 1 and Player 2) learning simultaneously.
+
+### Analyzing the Results (20,000 Episodes):**
+* **Overall Trend: The agent's performance begins with an initial "dip phase" lasting until approximately episode 2,500. During this early stage, the rewards are highly volatile, characterized by numerous extreme positive and negative outliers as the agents explore the environment.
+* **Growth and Stability:** Following this period, there is a slow but steady improvement in the rolling average reward. The learning curve begins to plateau around episode 15,000, with the average performance stabilizing between 0 and 50.
+* **Observation on Variance:** While the average reward remains consistently positive in the latter half of the training, the high density of the shaded area (raw rewards) indicates that significant variance remains. This suggests that while the agent has learned a winning strategy, it still encounters challenging scenarios or makes occasional sub-optimal moves.
+* **Dominance of Route Claiming:** Both agents failed to fully grasp the strategic value of Destination Tickets. Instead, they favored a high-frequency route-claiming approach. In the early game, the agents prioritize 1–3 train routes, shifting toward longer 4–5 train segments only during the endgame phase.
+* **Geographic Preferences:** A distinct pattern emerged in the opening moves, with agents consistently claiming 2-train routes in the following key corridors:
+    * The Central Corridor (between Duluth and Houston).
+    * The Northeast Axis (around the Atlanta–New York–Montreal area).
+    * The Pacific Northwest (the 1-point connection between Seattle and Vancouver).
+* **Vulnerability to Random Strategies:** Interestingly, the trained agents were occasionally outplayed by a random agent. This occurs because the trained agents attempt to "hoard" specific color cards to build longer, high-value routes in anticipation of a lengthy game. Conversely, the random agent places trains indiscriminately, rapidly exhausting its wagon supply and triggering an early game-end. This effectively "blitzes" the trained agent, leaving them with a hand full of unused cards and uncompleted objectives.
+* **The Performance "Dip":** in one of the 20.000 episode training sessions a major dip for Player 1 occurred around episode 6,000, indicating that Player 2 discovered a counter-strategy, necessitating a policy adaptation from Player 1.
+
+
+### Challenges Encountered & Lessons Learned:
+* **Delayed Rewards Problem:** The preference for routes over tickets highlights a classic RL challenge: agents often prefer immediate, smaller rewards over larger, delayed ones.
+
+* **Policy Destabilization:** I learned that in multi-agent RL, "convergence" is not a straight line. The agents are essentially moving targets for each other. A reward plot that goes down isn't always a sign of a "bad" model; it often indicates that the opponent has improved, necessitating a policy update.
+
+
+### Next Steps & Focus:
+* **Reward Shaping:** Adjusting the reward function to provide "milestone" rewards for getting closer to completing a ticket, rather than only rewarding the final connection.
+* **Hyperparameter Tuning:** Adjusting the learning rate and epsilon decay to help the "losing" agent recover more quickly from competitive dips.
+* **Experience Replay Prioritization:** Implementing "Prioritized Experience Replay" to ensure the agent learns more frequently from rare or high-impact events (like completing a very long ticket).
+* **MCTS Groundwork:** Exploring the integration of Monte Carlo Tree Search to give the DQN agent "look-ahead" capabilities, combining deep learning with classical search.
+
+---
 
 ### Entry: September 17, 2025
 
