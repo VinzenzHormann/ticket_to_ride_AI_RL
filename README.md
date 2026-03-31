@@ -113,6 +113,7 @@ This period marked a significant architectural shift from the tabular Q-learning
 
 ### Analyzing the Results (20,000 Episodes):
 ![DQN Agent Reward Graph](screenshots/22000_episode_reward_graph.png)
+<video src="demo/Mock_game_with_2_trained_agents.mp4" width="100%" autoplay loop muted playsinline></video>
 * **Overall Trend:** The agent's performance begins with an initial "dip phase" lasting until approximately episode 2,500. During this early stage, the rewards are highly volatile, characterized by numerous extreme positive and negative outliers as the agents explore the environment.
 * **Growth and Stability:** Following this period, there is a slow but steady improvement in the rolling average reward. The learning curve begins to plateau around episode 15,000, with the average performance stabilizing between 0 and 50.
 * **Observation on Variance:** While the average reward remains consistently positive in the latter half of the training, the high density of the shaded area (raw rewards) indicates that significant variance remains. This suggests that while the agent has learned a winning strategy, it still encounters challenging scenarios or makes occasional sub-optimal moves.
