@@ -165,8 +165,8 @@ This is the primary function that orchestrates the entire learning process.
     * **Initialization:** It starts by creating an instance of the TicketToRideEnv and QLearningAgent classes. It also initializes a list to store the rewards for each episode.
     * **Episode Iteration:** The loop iterates for a predefined number of num_episodes. In each episode.
 	1.  The environment is reset.
-        2.  A while loop continues as long as the game has not ended.
-        3.  The agent's select_action function is called to choose an action based on the current observation.
+    2.  A while loop continues as long as the game has not ended.
+    3 .  The agent's select_action function is called to choose an action based on the current observation.
 	4.  The chosen action is passed to the environment's step function, which moves the game forward.
 	5.  The environment's step returns the reward and the new_observation.
 	6.  The agent's learn function is called to update its Q-table using the reward and new_observation.
@@ -186,8 +186,8 @@ This is the primary function that orchestrates the entire learning process.
 This is the primary function that orchestrates the entire learning process.
 
 * **1. The Initial Exploration Phase (first 100 episodes):** the agent's performance is low and highly volatile, with rewards often fluctuating. This is exactly what we would expect. The agent's epsilon-greedy strategy is heavily weighted towards exploration, meaning it is taking many random actions to populate its Q-table with reward data.
-* **2. The Learning and Improvement Phase (until episode 1,500): ** You can see a noticeable increase in the average reward during this period. The total rewards are consistently more positive than in the initial phase, with spikes reaching near to 20 or more. This indicates that the agent is now beginning to exploit the positive knowledge it has gained from its exploration.
-* **3. The Convergence Phase (Episodes 1,500-10,000):** After the 1,500 the agent's performance has largely stabilized. The total rewards are consistently positive, and the range of fluctuation has significantly narrowed especially in the negative direction, spikes reaching 25 or more are stil frequently visible.
+* **2. The Learning and Improvement Phase (until episode 1,500):** You can see a noticeable increase in the average reward during this period. The total rewards are consistently more positive than in the initial phase, with spikes reaching near to 20 or more. This indicates that the agent is now beginning to exploit the positive knowledge it has gained from its exploration.
+* **3. The Convergence Phase (Episodes 1,500-10,000):** After episode 1,500, the agent's performance largely stabilized. However, it is important to note that during the final third of the 10,000 training episodes, the range of fluctuation increased compared to the second third, with more outliers in both positive and negative directions. Despite this increased variance, the average overall score improved consistently following a slight dip between episodes 4,000 and 6,000.
 
 ![DQN Agent Reward Graph](screenshots/phase_2_q_table_results.JPG)
 
