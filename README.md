@@ -113,7 +113,6 @@ This period marked a significant architectural shift from the tabular Q-learning
 
 ### Analyzing the Results (20,000 Episodes):
 ![DQN Agent Reward Graph](screenshots/22000_episode_reward_graph.png)
-<video src="demo/Mock_game_with_2_trained_agents.mp4" width="100%" autoplay loop muted playsinline></video>
 * **Overall Trend:** The agent's performance begins with an initial "dip phase" lasting until approximately episode 2,500. During this early stage, the rewards are highly volatile, characterized by numerous extreme positive and negative outliers as the agents explore the environment.
 * **Growth and Stability:** Following this period, there is a slow but steady improvement in the rolling average reward. The learning curve begins to plateau around episode 15,000, with the average performance stabilizing between 0 and 50.
 * **Observation on Variance:** While the average reward remains consistently positive in the latter half of the training, the high density of the shaded area (raw rewards) indicates that significant variance remains. This suggests that while the agent has learned a winning strategy, it still encounters challenging scenarios or makes occasional sub-optimal moves.
@@ -189,6 +188,8 @@ This is the primary function that orchestrates the entire learning process.
 * **1. The Initial Exploration Phase (first 100 episodes):** the agent's performance is low and highly volatile, with rewards often fluctuating. This is exactly what we would expect. The agent's epsilon-greedy strategy is heavily weighted towards exploration, meaning it is taking many random actions to populate its Q-table with reward data.
 * **2. The Learning and Improvement Phase (until episode 1,500): ** You can see a noticeable increase in the average reward during this period. The total rewards are consistently more positive than in the initial phase, with spikes reaching near to 20 or more. This indicates that the agent is now beginning to exploit the positive knowledge it has gained from its exploration.
 * **3. The Convergence Phase (Episodes 1,500-10,000):** After the 1,500 the agent's performance has largely stabilized. The total rewards are consistently positive, and the range of fluctuation has significantly narrowed especially in the negative direction, spikes reaching 25 or more are stil frequently visible.
+
+![DQN Agent Reward Graph](screenshots/phase_2_q_table_results.JPG)
 
 ### Next Steps & Focus:
 * **Advanced Reinforcement Learning:** Transitioning from the Q-table to a more advanced model capable of handling the full game's state space. This will involve implementing a Deep Q-Network (DQN) which uses a neural network to approximate Q-values.
